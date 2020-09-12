@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "933030306871",
+    "firebase_url": "https://manaus-verde.firebaseio.com",
+    "project_id": "manaus-verde",
+    "storage_bucket": "manaus-verde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933030306871:android:36781b971e7fc97d688bb2",
+        "android_client_info": {
+          "package_name": "io.github.pedroermarinho.manaus_verde"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933030306871-o54iql805p98j1a2mc37cfk8b1i0ucr9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.pedroermarinho.manaus_verde",
+            "certificate_hash": "bfd76b3c611bcf1540a116734e60c6d8fb5cc354"
+          }
+        },
+        {
+          "client_id": "933030306871-h6ogi1irnois25n6jb1pf1ajgoe1ohk8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFqJugljgGJ8FO3KSHoAKvtkH4v2BwieY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933030306871-h6ogi1irnois25n6jb1pf1ajgoe1ohk8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
