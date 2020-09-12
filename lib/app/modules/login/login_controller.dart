@@ -1,4 +1,6 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/services.dart';
+import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -8,7 +10,7 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  // final _auth = Modular.get<AuthRepositoryController>();
+  final _auth = Modular.get<AuthRepositoryController>();
 
   @observable
   bool loading = false;
@@ -28,48 +30,48 @@ abstract class _LoginControllerBase with Store {
   @action
   setPassword(String value) => password = value;
 
-  @action
-  Future loginWithGoogle() async {
-    try {
-      loading = true;
-      // await _auth.loginWithGoogle();
-      Modular.to.pushReplacementNamed("/home");
-    } catch (e) {
-      loading = false;
-    }
-  }
+  // @action
+  // Future loginWithGoogle() async {
+  //   try {
+  //     loading = true;
+  //     await _auth.loginWithGoogle();
+  //     Modular.to.pushReplacementNamed("/home");
+  //   } catch (e) {
+  //     loading = false;
+  //   }
+  // }
 
   @action
   Future loginWithEmailPasswordLogin() async {
     pushHome();
-    // messageError = "";
-    // try {
-    //   loading = true;
-    //   await _auth.loginWithEmailPasswordLogin(email, password).then((_) {
-    //     pushHome();
-    //   }).catchError((error) {
-    //     PlatformException exception = error;
-    //     print(exception.code);
-    //     String mensagemException = "";
-    //
-    //     if (exception.code == "ERROR_USER_NOT_FOUND") {
-    //       mensagemException += "\nUsuário não encontrado!";
-    //     }
-    //     if (exception.code == "ERROR_WRONG_PASSWORD") {
-    //       mensagemException += "\nSenha incorreta!";
-    //     }
-    //     if (exception.code == "ERROR_NETWORK_REQUEST_FAILED") {
-    //       mensagemException += "\nNão possivel se conectar com a internet!";
-    //     }
-    //     loading = false;
-    //
-    //     messageError =
-    //         "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!" +
-    //             mensagemException;
-    //   });
-    // } catch (e) {
-    //   loading = false;
-    // }
+    messageError = "";
+    try {
+      loading = true;
+      await _auth.loginWithEmailPasswordLogin(email, password).then((_) {
+        pushHome();
+      }).catchError((error) {
+        PlatformException exception = error;
+        print(exception.code);
+        String mensagemException = "";
+
+        if (exception.code == "ERROR_USER_NOT_FOUND") {
+          mensagemException += "\nUsuário não encontrado!";
+        }
+        if (exception.code == "ERROR_WRONG_PASSWORD") {
+          mensagemException += "\nSenha incorreta!";
+        }
+        if (exception.code == "ERROR_NETWORK_REQUEST_FAILED") {
+          mensagemException += "\nNão possivel se conectar com a internet!";
+        }
+        loading = false;
+
+        messageError =
+            "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!" +
+                mensagemException;
+      });
+    } catch (e) {
+      loading = false;
+    }
 
 
   }

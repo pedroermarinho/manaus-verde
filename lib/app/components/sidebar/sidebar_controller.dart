@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-// import 'package:manaus_verde/app/models/user_model.dart';
-// import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
-// import 'package:manaus_verde/app/shared/auth/auth_repository_controller.dart';
+import 'package:manaus_verde/app/models/user_model.dart';
+import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'sidebar_controller.g.dart';
@@ -13,11 +13,11 @@ part 'sidebar_controller.g.dart';
 class SidebarController = _SidebarControllerBase with _$SidebarController;
 
 abstract class _SidebarControllerBase with Store {
-  // final _userRepositoryController = Modular.get<UserRepositoryController>();
-  // final _authController = Modular.get<AuthRepositoryController>();
+  final _userRepositoryController = Modular.get<UserRepositoryController>();
+  final _authController = Modular.get<AuthRepositoryController>();
 
-  // @observable
-  // User user;
+  @observable
+  UserModel user;
 
   @observable
   bool loading = false;
@@ -41,19 +41,19 @@ abstract class _SidebarControllerBase with Store {
 
   @action
   getUser() async {
-    // await _userRepositoryController.getUser();
-    // autorun((value) {
-    //   if (_userRepositoryController.user != null) {
-    //     value.dispose();
-    //     this.user = _userRepositoryController.user;
-    //   }
-    // });
+    await _userRepositoryController.getUser();
+    autorun((value) {
+      if (_userRepositoryController.user != null) {
+        value.dispose();
+        this.user = _userRepositoryController.user;
+      }
+    });
   }
 
   logoutUser() async {
-    // await _authController.logout();
-    // _authController.setUser(null);
-    // _userRepositoryController.setUser(null);
+    await _authController.logout();
+    _authController.setUser(null);
+    _userRepositoryController.setUser(null);
     pushSplashScreen();
   }
 

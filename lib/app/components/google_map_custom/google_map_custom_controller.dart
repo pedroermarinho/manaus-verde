@@ -10,6 +10,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:manaus_verde/app/components/show_dialog_custom/show_dialog_custom_widget.dart';
 import 'package:manaus_verde/app/models/marker_model.dart';
+import 'package:manaus_verde/app/models/type_marker_model.dart';
+import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/type_marker/type_marker_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 import 'Dart:ui' as ui;
@@ -21,11 +24,11 @@ class GoogleMapCustomController = _GoogleMapCustomControllerBase
 
 abstract class _GoogleMapCustomControllerBase with Store {
   ///
-  // final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
 
   ///
-  // final _typeMarkerRepositoryController =
-  //     Modular.get<TypeMarkerRepositoryController>();
+  final _typeMarkerRepositoryController =
+      Modular.get<TypeMarkerRepositoryController>();
 
   ///
   @observable
@@ -95,9 +98,15 @@ abstract class _GoogleMapCustomControllerBase with Store {
 
   /// Construdor
   _GoogleMapCustomControllerBase() {
-    // loadMarkers();
-    // recoverLastKnownLocation();
+
+    loadMarkers();
+    recoverLastKnownLocation();
   }
+
+  void permission()async{
+
+  }
+
 
   /// Mapa Criado
   @action
@@ -108,77 +117,77 @@ abstract class _GoogleMapCustomControllerBase with Store {
 
   /// Carregar Macadores
   loadMarkers() async {
-    // _markerRepositoryController.getMarkers().listen((event) {
-    //   event.documents.forEach((element) {
-    //     Map<String, dynamic> data = element.data;
-    //     if (element != null) {
-    //       MarkerModel markerLocal = MarkerModel(
-    //         idMarker: element.documentID,
-    //         idUserCreator: data["idUserCreator"],
-    //         idTypeMarker: data["idTypeMarker"],
-    //         title: data["title"],
-    //         description: data["description"],
-    //         da: data["da"],
-    //         di: data["di"],
-    //         dm: data["dm"],
-    //         dv: data["dv"],
-    //         latitude: data["latitude"],
-    //         longitude: data["longitude"],
-    //       );
-    //       viewMarker(markerLocal);
-    //     }
-    //   });
-    // });
+    _markerRepositoryController.getMarkers().listen((event) {
+      event.documents.forEach((element) {
+        Map<String, dynamic> data = element.data;
+        if (element != null) {
+          MarkerModel markerLocal = MarkerModel(
+            idMarker: element.documentID,
+            idUserCreator: data["idUserCreator"],
+            idTypeMarker: data["idTypeMarker"],
+            title: data["title"],
+            description: data["description"],
+            da: data["da"],
+            di: data["di"],
+            dm: data["dm"],
+            dv: data["dv"],
+            latitude: data["latitude"],
+            longitude: data["longitude"],
+          );
+          viewMarker(markerLocal);
+        }
+      });
+    });
   }
 
   /// Carregar Macadores por categoria
   loadMarkersCategories(String category) async {
     markers.clear();
-    // _markerRepositoryController.getMarkers().listen((event) {
-    //   List<DocumentSnapshot> list = event.documents;
-    //
-    //   List<DocumentSnapshot> listCategory = list.where((element) {
-    //     switch (category) {
-    //       case "da":
-    //         return element.data["da"] == true;
-    //         break;
-    //       case "di":
-    //         return element.data["di"] == true;
-    //         break;
-    //       case "dm":
-    //         return element.data["dm"] == true;
-    //         break;
-    //       case "dv":
-    //         return element.data["dv"] == true;
-    //         break;
-    //       case "all":
-    //         return true;
-    //         break;
-    //       default:
-    //         return false;
-    //     }
-    //   }).toList();
-    //
-    //   listCategory.forEach((element) {
-    //     Map<String, dynamic> data = element.data;
-    //     if (element != null) {
-    //       MarkerModel markerLocal = MarkerModel(
-    //         idMarker: element.documentID,
-    //         idUserCreator: data["idUserCreator"],
-    //         idTypeMarker: data["idTypeMarker"],
-    //         title: data["title"],
-    //         description: data["description"],
-    //         da: data["da"],
-    //         di: data["di"],
-    //         dm: data["dm"],
-    //         dv: data["dv"],
-    //         latitude: data["latitude"],
-    //         longitude: data["longitude"],
-    //       );
-    //       viewMarker(markerLocal);
-    //     }
-    //   });
-    // });
+    _markerRepositoryController.getMarkers().listen((event) {
+      List<DocumentSnapshot> list = event.documents;
+
+      List<DocumentSnapshot> listCategory = list.where((element) {
+        switch (category) {
+          case "da":
+            return element.data["da"] == true;
+            break;
+          case "di":
+            return element.data["di"] == true;
+            break;
+          case "dm":
+            return element.data["dm"] == true;
+            break;
+          case "dv":
+            return element.data["dv"] == true;
+            break;
+          case "all":
+            return true;
+            break;
+          default:
+            return false;
+        }
+      }).toList();
+
+      listCategory.forEach((element) {
+        Map<String, dynamic> data = element.data;
+        if (element != null) {
+          MarkerModel markerLocal = MarkerModel(
+            idMarker: element.documentID,
+            idUserCreator: data["idUserCreator"],
+            idTypeMarker: data["idTypeMarker"],
+            title: data["title"],
+            description: data["description"],
+            da: data["da"],
+            di: data["di"],
+            dm: data["dm"],
+            dv: data["dv"],
+            latitude: data["latitude"],
+            longitude: data["longitude"],
+          );
+          viewMarker(markerLocal);
+        }
+      });
+    });
   }
 
   /// Obter bytes do ativo
@@ -197,34 +206,34 @@ abstract class _GoogleMapCustomControllerBase with Store {
   /// Mostrar marcador
   @action
   viewMarker(MarkerModel marker) async {
-    // await _typeMarkerRepositoryController.getTypeMarker(marker.idTypeMarker);
-    // TypeMarker typeMarker = _typeMarkerRepositoryController.typeMarker;
-    //
-    // getBytesFromAsset('assets/icons/${typeMarker.icon}.png', 60).then((value) {
-    //   BitmapDescriptor icon = BitmapDescriptor.fromBytes(value);
-    //
-    //   Marker markerMap = Marker(
-    //     markerId: MarkerId(marker.idMarker),
-    //     position: LatLng(marker.latitude, marker.longitude),
-    //     icon: icon,
-    //     onTap: () {
-    //       setLatLngActual(LatLng(marker.latitude, marker.longitude));
-    //       setLatLngMarkerActual(LatLng(marker.latitude, marker.longitude));
-    //     },
-    //     infoWindow: InfoWindow(
-    //         title: marker.title,
-    //         onTap: () {
-    //           setCameraPosition(Position(
-    //               latitude: marker.latitude, longitude: marker.longitude));
-    //           _markerRepositoryController.setMarker(marker);
-    //           Modular.to.pushNamed("/information").whenComplete(() {
-    //             loadMarkers();
-    //             showMarkerLocation(positionActual);
-    //           });
-    //         }),
-    //   );
-    //   markers.addAll({markerMap.markerId.value: markerMap});
-    // });
+    await _typeMarkerRepositoryController.getTypeMarker(marker.idTypeMarker);
+    TypeMarkerModel typeMarker = _typeMarkerRepositoryController.typeMarker;
+
+    getBytesFromAsset('assets/icons/${typeMarker.icon}.png', 60).then((value) {
+      BitmapDescriptor icon = BitmapDescriptor.fromBytes(value);
+
+      Marker markerMap = Marker(
+        markerId: MarkerId(marker.idMarker),
+        position: LatLng(marker.latitude, marker.longitude),
+        icon: icon,
+        onTap: () {
+          setLatLngActual(LatLng(marker.latitude, marker.longitude));
+          setLatLngMarkerActual(LatLng(marker.latitude, marker.longitude));
+        },
+        infoWindow: InfoWindow(
+            title: marker.title,
+            onTap: () {
+              setCameraPosition(Position(
+                  latitude: marker.latitude, longitude: marker.longitude));
+              _markerRepositoryController.setMarker(marker);
+              Modular.to.pushNamed("/information").whenComplete(() {
+                loadMarkers();
+                showMarkerLocation(positionActual);
+              });
+            }),
+      );
+      markers.addAll({markerMap.markerId.value: markerMap});
+    });
   }
 
   /// Mostrar Localização do Marcador

@@ -52,25 +52,25 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     onChanged: controller.setPassword,
                   ),
                 ),
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: <Widget>[
-                   Padding(
-                     padding: EdgeInsets.only(bottom: 10),
-                     child: RaisedButton(
-                       child: Text(
-                         "Entrar com Google",
-                         style: TextStyle(color: Colors.white, fontSize: 15),
-                       ),
-                       color: Colors.greenAccent,
-                       shape: RoundedRectangleBorder(
-                           borderRadius: BorderRadius.circular(32)),
-                       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                       onPressed: controller.loginWithGoogle,
-                     ),
-                   ),
-                 ],
-               ),
+               // Row(
+               //   mainAxisAlignment: MainAxisAlignment.center,
+               //   children: <Widget>[
+               //     Padding(
+               //       padding: EdgeInsets.only(bottom: 10),
+               //       child: RaisedButton(
+               //         child: Text(
+               //           "Entrar com Google",
+               //           style: TextStyle(color: Colors.white, fontSize: 15),
+               //         ),
+               //         color: Colors.greenAccent,
+               //         shape: RoundedRectangleBorder(
+               //             borderRadius: BorderRadius.circular(32)),
+               //         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+               //         onPressed: controller.loginWithGoogle,
+               //       ),
+               //     ),
+               //   ],
+               // ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Observer(

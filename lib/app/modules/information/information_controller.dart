@@ -9,12 +9,13 @@ import 'package:manaus_verde/app/models/favorite_model.dart';
 import 'package:manaus_verde/app/models/marker_model.dart';
 import 'package:manaus_verde/app/models/user_model.dart';
 import 'package:manaus_verde/app/modules/information/components/marker_icon_detector/marker_icon_detector_widget.dart';
+import 'package:manaus_verde/app/modules/information/repositories/comment/comment_repository_controller.dart';
 import 'package:manaus_verde/app/modules/information/repositories/stars/stars_repository_controller.dart';
-// import 'package:manaus_verde/app/repositories/favorite/favorite_repository_controller.dart';
-// import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
-// import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
-// import 'package:manaus_verde/app/shared/auth/auth_repository_controller.dart';
-// import 'package:manaus_verde/app/shared/utils/type_user.dart';
+import 'package:manaus_verde/app/repositories/favorite/favorite_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
+import 'package:manaus_verde/app/shared/utils/type_user.dart';
 import 'package:mobx/mobx.dart';
 
 import 'models/stars_model.dart';
@@ -26,16 +27,16 @@ class InformationController = _InformationControllerBase
 
 abstract class _InformationControllerBase with Store {
   //use 'controller' variable to access controller
-  // final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
-  // final _userRepositoryController = Modular.get<UserRepositoryController>();
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+  final _userRepositoryController = Modular.get<UserRepositoryController>();
   final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
-  // final _favoriteRepositoryController =
-  //     Modular.get<FavoriteRepositoryController>();
+  final _favoriteRepositoryController =
+      Modular.get<FavoriteRepositoryController>();
 
-//  final _commentRepositoryController =Modular.get<CommentRepositoryController>();
+ final _commentRepositoryController =Modular.get<CommentRepositoryController>();
 
   final _starsRepositoryController = Modular.get<StarsRepositoryController>();
-  // final _authRepositoryController = Modular.get<AuthRepositoryController>();
+  final _authRepositoryController = Modular.get<AuthRepositoryController>();
 
   @observable
   UserModel userMarker;
@@ -71,21 +72,21 @@ abstract class _InformationControllerBase with Store {
 
   @action
   getUserMarker() async {
-    // this.userMarker =
-    //     await _userRepositoryController.getUserId(marker.idUserCreator);
+    this.userMarker =
+        await _userRepositoryController.getUserId(marker.idUserCreator);
   }
 
   ///
   recoverMarker() async {
-    // this.marker = _markerRepositoryController.marker;
-    // iconsAss();
-    // placemark = await _googleMapCustomController.addressPossition(
-    //   Position(
-    //     latitude: marker.latitude,
-    //     longitude: marker.longitude,
-    //   ),
-    // );
-    // loading = false;
+    this.marker = _markerRepositoryController.marker;
+    iconsAss();
+    placemark = await _googleMapCustomController.addressPossition(
+      Position(
+        latitude: marker.latitude,
+        longitude: marker.longitude,
+      ),
+    );
+    loading = false;
   }
 
   ///
@@ -124,12 +125,12 @@ abstract class _InformationControllerBase with Store {
 
   ///
   typeUser() async {
-    // UserModel user = await _userRepositoryController.getUser();
-    // if (user.userType == TypeUser.userAdministrators ||
-    //     user.idUser == marker.idUserCreator) {
-    //   itemsMenu.add("Editar");
-    //   itemsMenu.add("Deletar");
-    // } else {}
+    UserModel user = await _userRepositoryController.getUser();
+    if (user.userType == TypeUser.userAdministrators ||
+        user.idUser == marker.idUserCreator) {
+      itemsMenu.add("Editar");
+      itemsMenu.add("Deletar");
+    } else {}
   }
 
   ///
@@ -143,8 +144,8 @@ abstract class _InformationControllerBase with Store {
         });
         break;
       case "Deletar":
-        // _markerRepositoryController.setMarker(marker);
-        // _markerRepositoryController.deleteMarker();
+        _markerRepositoryController.setMarker(marker);
+        _markerRepositoryController.deleteMarker();
         _googleMapCustomController.markers.clear();
         _googleMapCustomController.loadMarkers();
         Modular.to.pop();
@@ -154,24 +155,24 @@ abstract class _InformationControllerBase with Store {
 
   /// Deleta um favorito
   Future deleteFavoriteMarker() {
-    // return _favoriteRepositoryController
-    //     .deleteFavoriteMarker(marker.idMarker)
-    //     .whenComplete(() {
-    //   setFavorite(null);
-    // });
+    return _favoriteRepositoryController
+        .deleteFavoriteMarker(marker.idMarker)
+        .whenComplete(() {
+      setFavorite(null);
+    });
   }
 
   /// Salva um novo favorito
   Future saveFavoriteMarker() {
-    // return _favoriteRepositoryController
-    //     .saveFavoriteMarker(marker.idMarker)
-    //     .whenComplete(getFavorite);
+    return _favoriteRepositoryController
+        .saveFavoriteMarker(marker.idMarker)
+        .whenComplete(getFavorite);
   }
 
   getFavorite() async {
-    // _favoriteRepositoryController
-    //     .getFavoriteMarker(marker.idMarker)
-    //     .then(setFavorite);
+    _favoriteRepositoryController
+        .getFavoriteMarker(marker.idMarker)
+        .then(setFavorite);
   }
 
   @observable
@@ -186,16 +187,16 @@ abstract class _InformationControllerBase with Store {
 
   @action
   salveStars(int value) {
-    // if (stars == null) {
-    //   stars = StarsModel(
-    //       idMarker: marker.idMarker,
-    //       idUser: _authRepositoryController.userAuth.uid,
-    //       stars: value);
-    //   _starsRepositoryController.saveStars(stars).whenComplete(loadStars);
-    // } else {
-    //   stars.stars = value;
-    //   _starsRepositoryController.updateStars(stars).whenComplete(loadStars);
-    // }
+    if (stars == null) {
+      stars = StarsModel(
+          idMarker: marker.idMarker,
+          idUser: _authRepositoryController.userAuth.uid,
+          stars: value);
+      _starsRepositoryController.saveStars(stars).whenComplete(loadStars);
+    } else {
+      stars.stars = value;
+      _starsRepositoryController.updateStars(stars).whenComplete(loadStars);
+    }
   }
 
   bool isValidStars(int value) {

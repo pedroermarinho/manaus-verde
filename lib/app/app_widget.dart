@@ -11,12 +11,12 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Slidy',
+      title: 'Manaus Verde',
       theme: AppTheme().themeData(),
-      routes: AppRoutes().routeMain(),
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
       navigatorKey: Modular.navigatorKey,
+      onGenerateRoute: Modular.generateRoute,
       localizationsDelegates: [
         const AppLocaleDelegate(),
         GlobalMaterialLocalizations.delegate,

@@ -4,6 +4,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manaus_verde/app/components/google_map_custom/google_map_custom_controller.dart';
 import 'package:manaus_verde/app/models/favorite_model.dart';
+import 'package:manaus_verde/app/models/marker_model.dart';
+import 'package:manaus_verde/app/repositories/favorite/favorite_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
 // import 'package:manaus_verde/app/models/marker_model.dart';
 // import 'package:manaus_verde/app/repositories/favorite/favorite_repository_controller.dart';
 // import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
@@ -15,9 +18,9 @@ class ShowFavoriteListController = _ShowFavoriteListControllerBase
     with _$ShowFavoriteListController;
 
 abstract class _ShowFavoriteListControllerBase with Store {
-  // final _favoriteRepositoryController =
-  //     Modular.get<FavoriteRepositoryController>();
-  // final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+  final _favoriteRepositoryController =
+      Modular.get<FavoriteRepositoryController>();
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
   final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
 
   ObservableList<Widget> listWidget = ObservableList();
@@ -42,33 +45,33 @@ abstract class _ShowFavoriteListControllerBase with Store {
 
   loadList(BuildContext context) async {
     listWidget.clear();
-    // await _favoriteRepositoryController.getFavoritesUser().then((value) {
-    //   value.listen((event) {
-    //     for (var documents in event.documents) {
-    //       final Map<String, dynamic> data = documents.data;
-    //       final FavoriteModel favorite = FavoriteModel(
-    //         idFavorite: documents.documentID,
-    //         idMarker: data["idMarker"],
-    //         idUser: data["idUser"],
-    //       );
-    //       loadListWidget(favorite, context);
-    //     }
-    //   });
-    // });
+    await _favoriteRepositoryController.getFavoritesUser().then((value) {
+      value.listen((event) {
+        for (var documents in event.documents) {
+          final Map<String, dynamic> data = documents.data;
+          final FavoriteModel favorite = FavoriteModel(
+            idFavorite: documents.documentID,
+            idMarker: data["idMarker"],
+            idUser: data["idUser"],
+          );
+          loadListWidget(favorite, context);
+        }
+      });
+    });
   }
 
   loadListWidget(FavoriteModel favorite, BuildContext context) async {
-    // MarkerModel marker =
-    //     await _markerRepositoryController.getMarker(favorite.idMarker);
+    MarkerModel marker =
+        await _markerRepositoryController.getMarker(favorite.idMarker);
     final Widget widget = itemListTile(
-      // labelText: "${marker.title}",
+      labelText: "${marker.title}",
       onTap: () {
-        // _googleMapCustomController.newLocationPosition(
-        //   Position(
-        //     longitude: marker.longitude,
-        //     latitude: marker.latitude,
-        //   ),
-        // );
+        _googleMapCustomController.newLocationPosition(
+          Position(
+            longitude: marker.longitude,
+            latitude: marker.latitude,
+          ),
+        );
         Navigator.pop(context);
       },
     );

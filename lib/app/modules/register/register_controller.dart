@@ -2,9 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/models/user_model.dart';
-// import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
-// import 'package:manaus_verde/app/shared/utils/type_user.dart';
-// import 'package:manaus_verde/app/shared/utils/user_util.dart';
+import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
+import 'package:manaus_verde/app/shared/utils/type_user.dart';
+import 'package:manaus_verde/app/shared/utils/user_util.dart';
 import 'package:mobx/mobx.dart';
 
 part 'register_controller.g.dart';
@@ -12,7 +12,7 @@ part 'register_controller.g.dart';
 class RegisterController = _RegisterControllerBase with _$RegisterController;
 
 abstract class _RegisterControllerBase with Store {
-  // final _userController = Modular.get<UserRepositoryController>();
+  final _userController = Modular.get<UserRepositoryController>();
 
   @observable
   bool loading = false;
@@ -40,44 +40,44 @@ abstract class _RegisterControllerBase with Store {
 
   @action
   Future registerUser() async {
-    // messageError = "";
-    // try {
-    //   loading = true;
-    //
-    //   // User user = User();
-    //   user.name = name;
-    //   user.email = email;
-    //   user.password = password;
-    //   user.userType = TypeUser.newUser;
-    //   user.pathPhoto = UserUtil.caminhoFotoUser;
-    //
-    //   await _userController.setUser(user);
-    //
-    //   await _userController.registerUser().then((value) {
-    //     pushHome();
-    //   }).catchError((error) {
-    //     PlatformException exception = error;
-    //     print(exception.code);
-    //     String messageException = "";
-    //
-    //     if (exception.code == "ERROR_USER_NOT_FOUND") {
-    //       messageException += "\nUsuário não encontrado!";
-    //     }
-    //     if (exception.code == "ERROR_WRONG_PASSWORD") {
-    //       messageException += "\nSenha incorreta!";
-    //     }
-    //     if (exception.code == "ERROR_EMAIL_ALREADY_IN_USE") {
-    //       messageException += "\nE-mail já cadastrado!";
-    //     }
-    //     loading = false;
-    //
-    //     messageError =
-    //         "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!" +
-    //             messageException;
-    //   });
-    // } catch (e) {
-    //   loading = false;
-    // }
+    messageError = "";
+    try {
+      loading = true;
+
+      UserModel user = UserModel();
+      user.name = name;
+      user.email = email;
+      user.password = password;
+      user.userType = TypeUser.newUser;
+      user.pathPhoto = UserUtil.caminhoFotoUser;
+
+      await _userController.setUser(user);
+
+      await _userController.registerUser().then((value) {
+        pushHome();
+      }).catchError((error) {
+        PlatformException exception = error;
+        print(exception.code);
+        String messageException = "";
+
+        if (exception.code == "ERROR_USER_NOT_FOUND") {
+          messageException += "\nUsuário não encontrado!";
+        }
+        if (exception.code == "ERROR_WRONG_PASSWORD") {
+          messageException += "\nSenha incorreta!";
+        }
+        if (exception.code == "ERROR_EMAIL_ALREADY_IN_USE") {
+          messageException += "\nE-mail já cadastrado!";
+        }
+        loading = false;
+
+        messageError =
+            "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!" +
+                messageException;
+      });
+    } catch (e) {
+      loading = false;
+    }
   }
 
   Future pushHome() {

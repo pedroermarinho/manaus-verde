@@ -10,40 +10,10 @@ part of 'marker_icon_detector_controller.dart';
 
 mixin _$MarkerIconDetectorController
     on _MarkerIconDetectorControllerBase, Store {
-  final _$valueAtom = Atom(name: '_MarkerIconDetectorControllerBase.value');
-
-  @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
-  }
-
-  @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
-    });
-  }
-
-  final _$_MarkerIconDetectorControllerBaseActionController =
-      ActionController(name: '_MarkerIconDetectorControllerBase');
-
-  @override
-  void increment() {
-    final _$actionInfo = _$_MarkerIconDetectorControllerBaseActionController
-        .startAction(name: '_MarkerIconDetectorControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_MarkerIconDetectorControllerBaseActionController
-          .endAction(_$actionInfo);
-    }
-  }
-
   @override
   String toString() {
     return '''
-value: ${value}
+
     ''';
   }
 }

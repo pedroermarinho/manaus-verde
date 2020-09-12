@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/models/user_model.dart';
-// import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
-// import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'profile_controller.g.dart';
@@ -10,8 +10,8 @@ part 'profile_controller.g.dart';
 class ProfileController = _ProfileControllerBase with _$ProfileController;
 
 abstract class _ProfileControllerBase with Store {
-  // final _userRepositoryController = Modular.get<UserRepositoryController>();
-  // final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+  final _userRepositoryController = Modular.get<UserRepositoryController>();
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
   @observable
   UserModel user;
 
@@ -27,20 +27,20 @@ abstract class _ProfileControllerBase with Store {
 
   @action
   getUser() async {
-    // await _userRepositoryController.getUser();
-    // autorun((value) {
-    //   if (_userRepositoryController.user != null) {
-    //     value.dispose();
-    //     this.user = _userRepositoryController.user;
-    //     getMarkerUser(user.idUser);
-    //   }
-    // });
+    await _userRepositoryController.getUser();
+    autorun((value) {
+      if (_userRepositoryController.user != null) {
+        value.dispose();
+        this.user = _userRepositoryController.user;
+        getMarkerUser(user.idUser);
+      }
+    });
   }
 
   getMarkerUser(String idUser) {
-    // _markerRepositoryController.getMarkerUser(idUser).listen((event) {
-    //   markersLength = event.documents.length;
-    // });
+    _markerRepositoryController.getMarkerUser(idUser).listen((event) {
+      markersLength = event.documents.length;
+    });
   }
 }
 

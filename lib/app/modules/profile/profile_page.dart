@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manaus_verde/app/shared/utils/user_util.dart';
 // import 'package:manaus_verde/app/shared/utils/user_util.dart';
 
 import 'profile_controller.dart';
@@ -44,13 +45,13 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                           return CircleAvatar(
                             backgroundColor: Colors.white,
                             radius: 70,
-                            // backgroundImage: controller.user == null
-                            //     ? NetworkImage(
-                            //         // UserUtil.caminhoFotoUser,
-                            //       )
-                            //     : NetworkImage(
-                            //         controller.user.pathPhoto,
-                            //       ),
+                            backgroundImage: controller.user == null
+                                ? NetworkImage(
+                                    UserUtil.caminhoFotoUser,
+                                  )
+                                : NetworkImage(
+                                    controller.user.pathPhoto,
+                                  ),
                           );
                         },
                       ),

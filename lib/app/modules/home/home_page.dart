@@ -20,6 +20,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
 
   @override
+  void initState() {
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(

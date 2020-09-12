@@ -6,11 +6,5 @@ class ShowDialogCustomController = _ShowDialogCustomControllerBase
     with _$ShowDialogCustomController;
 
 abstract class _ShowDialogCustomControllerBase with Store {
-  @observable
-  int value = 0;
 
-  @action
-  void increment() {
-    value++;
-  }
 }

@@ -86,14 +86,6 @@ mixin _$LoginController on _LoginControllerBase, Store {
     });
   }
 
-  final _$loginWithGoogleAsyncAction =
-      AsyncAction('_LoginControllerBase.loginWithGoogle');
-
-  @override
-  Future<dynamic> loginWithGoogle() {
-    return _$loginWithGoogleAsyncAction.run(() => super.loginWithGoogle());
-  }
-
   final _$loginWithEmailPasswordLoginAsyncAction =
       AsyncAction('_LoginControllerBase.loginWithEmailPasswordLogin');
 

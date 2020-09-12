@@ -9,9 +9,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:manaus_verde/app/components/google_map_custom/google_map_custom_controller.dart';
 import 'package:manaus_verde/app/models/marker_model.dart';
 import 'package:manaus_verde/app/models/type_marker_model.dart';
-// import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
-// import 'package:manaus_verde/app/repositories/type_marker/type_marker_repository_controller.dart';
-// import 'package:manaus_verde/app/shared/auth/auth_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/type_marker/type_marker_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'marker_controller.g.dart';
@@ -19,10 +19,10 @@ part 'marker_controller.g.dart';
 class MarkerController = _MarkerControllerBase with _$MarkerController;
 
 abstract class _MarkerControllerBase with Store {
-  // final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
-  // final _typeMarkerRepositoryController =
-  //     Modular.get<TypeMarkerRepositoryController>();
-  // final _authController = Modular.get<AuthRepositoryController>();
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+  final _typeMarkerRepositoryController =
+      Modular.get<TypeMarkerRepositoryController>();
+  final _authController = Modular.get<AuthRepositoryController>();
   final _googleMapController = Modular.get<GoogleMapCustomController>();
 
   @observable
@@ -182,41 +182,41 @@ abstract class _MarkerControllerBase with Store {
 
   loadMarker(MarkerModel marker) {
     loading = true;
-    // _markerRepositoryController.setMarker(marker);
-    // _markerRepositoryController.saveMarker().then((value) {
-    //   loading = false;
-    //   _googleMapController.markers.clear();
-    //   _googleMapController.loadMarkers();
-    //   Modular.to.pop();
-    // }).catchError((error) {
-    //   print(error);
-    //   loading = false;
-    //   messageError =
-    //       "Erro ao cadastrar marcador, verifique os campos e tente novamente!";
-    // });
+    _markerRepositoryController.setMarker(marker);
+    _markerRepositoryController.saveMarker().then((value) {
+      loading = false;
+      _googleMapController.markers.clear();
+      _googleMapController.loadMarkers();
+      Modular.to.pop();
+    }).catchError((error) {
+      print(error);
+      loading = false;
+      messageError =
+          "Erro ao cadastrar marcador, verifique os campos e tente novamente!";
+    });
   }
 
   updateMarker() {
     loading = true;
     print(marker.idMarker);
-    // _markerRepositoryController.updateMarker(marker).then((value) {
-    //   loading = false;
-    //   _googleMapController.markers.clear();
-    //   _googleMapController.loadMarkers();
-    //   Modular.to.pop();
-    // }).catchError((error) {
-    //   PlatformException errorException = error;
-    //   print(errorException.code);
-    //   loading = false;
-    //   messageError =
-    //       "Erro ao atualizar o marcador, verifique os campos e tente novamente!";
-    // });
+    _markerRepositoryController.updateMarker(marker).then((value) {
+      loading = false;
+      _googleMapController.markers.clear();
+      _googleMapController.loadMarkers();
+      Modular.to.pop();
+    }).catchError((error) {
+      PlatformException errorException = error;
+      print(errorException.code);
+      loading = false;
+      messageError =
+          "Erro ao atualizar o marcador, verifique os campos e tente novamente!";
+    });
   }
 
   editMarker() async {
     if (marker != null) {
-      // TypeMarkerModel typeMarker = await _typeMarkerRepositoryController
-      //     .getTypeMarker(marker.idTypeMarker);
+      TypeMarkerModel typeMarker = await _typeMarkerRepositoryController
+          .getTypeMarker(marker.idTypeMarker);
 
       name = marker.title;
       description = marker.description;
@@ -230,69 +230,69 @@ abstract class _MarkerControllerBase with Store {
         latitude: marker.latitude,
       );
 
-      // dropdownMenuValue = DropdownMenuItem<TypeMarkerModel>(
-      //   value: typeMarker,
-      //   child: Row(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: <Widget>[
-      //       Image.asset(
-      //         "assets/icons/${typeMarker.icon}.png",
-      //         height: 40,
-      //         width: 40,
-      //       ),
-      //       Padding(
-      //         padding: EdgeInsets.only(top: 8),
-      //         child: Text(
-      //           typeMarker.name,
-      //           style: TextStyle(color: Colors.black),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // );
+      dropdownMenuValue = DropdownMenuItem<TypeMarkerModel>(
+        value: typeMarker,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Image.asset(
+              "assets/icons/${typeMarker.icon}.png",
+              height: 40,
+              width: 40,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8),
+              child: Text(
+                typeMarker.name,
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      );
     }
   }
 
   buildDropdownMenuItems() {
-  //   // Stream<QuerySnapshot> stream =
-  //   //     _typeMarkerRepositoryController.getTypeMarkers();
-  //   print(stream);
-  //   stream.listen(
-  //     (event) {
-  //       event.documents.forEach(
-  //         (element) {
-  //           Map<String, dynamic> data = element.data;
-  //
-  //           TypeMarker typeMarker = TypeMarker(
-  //             idTypeMarker: element.documentID,
-  //             name: data["name"],
-  //             icon: data["icon"],
-  //           );
-  //           dropdownMenuItems.add(
-  //             DropdownMenuItem<TypeMarker>(
-  //               value: typeMarker,
-  //               child: Row(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: <Widget>[
-  //                   Image.asset(
-  //                     "assets/icons/${typeMarker.icon}.png",
-  //                     height: 40,
-  //                     width: 40,
-  //                   ),
-  //                   Padding(
-  //                     padding: EdgeInsets.only(top: 8),
-  //                     child: Text(
-  //                       typeMarker.name,
-  //                       style: TextStyle(color: Colors.black),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
+    Stream<QuerySnapshot> stream =
+        _typeMarkerRepositoryController.getTypeMarkers();
+    print(stream);
+    stream.listen(
+      (event) {
+        event.documents.forEach(
+          (element) {
+            Map<String, dynamic> data = element.data;
+
+            TypeMarkerModel typeMarker = TypeMarkerModel(
+              idTypeMarker: element.documentID,
+              name: data["name"],
+              icon: data["icon"],
+            );
+            dropdownMenuItems.add(
+              DropdownMenuItem<TypeMarkerModel>(
+                value: typeMarker,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/icons/${typeMarker.icon}.png",
+                      height: 40,
+                      width: 40,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        typeMarker.name,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

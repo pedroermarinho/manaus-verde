@@ -11,22 +11,22 @@ abstract class _ShowMarkersListControllerBase with Store {
   final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
 
   getDA() {
-    // _googleMapCustomController.loadMarkersCategories("da");
+    _googleMapCustomController.loadMarkersCategories("da");
   }
 
   getDI() {
-    // _googleMapCustomController.loadMarkersCategories("di");
+    _googleMapCustomController.loadMarkersCategories("di");
   }
 
   getDM() {
-    // _googleMapCustomController.loadMarkersCategories("dm");
+    _googleMapCustomController.loadMarkersCategories("dm");
   }
 
   getDV() {
-    // _googleMapCustomController.loadMarkersCategories("dv");
+    _googleMapCustomController.loadMarkersCategories("dv");
   }
 
   getALL() {
-    // _googleMapCustomController.loadMarkersCategories("all");
+    _googleMapCustomController.loadMarkersCategories("all");
   }
 }

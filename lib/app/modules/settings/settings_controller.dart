@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:manaus_verde/app/models/user_model.dart';
-// import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'settings_controller.g.dart';
@@ -12,7 +12,7 @@ part 'settings_controller.g.dart';
 class SettingsController = _SettingsControllerBase with _$SettingsController;
 
 abstract class _SettingsControllerBase with Store {
-  // final _userRepositoryController = Modular.get<UserRepositoryController>();
+  final _userRepositoryController = Modular.get<UserRepositoryController>();
 
   @observable
   UserModel user;
@@ -74,9 +74,9 @@ abstract class _SettingsControllerBase with Store {
 
   @action
   getUser() async {
-    // await _userRepositoryController.getUser();
-    // this.user = _userRepositoryController.user;
-    // this.name = user.name;
+    await _userRepositoryController.getUser();
+    this.user = _userRepositoryController.user;
+    this.name = user.name;
   }
 
   Future getImage(String sourceImage) async {
@@ -94,30 +94,30 @@ abstract class _SettingsControllerBase with Store {
   }
 
   void uploadImage() async {
-    // StorageUploadTask task =
-    //     await _userRepositoryController.uploadImageUser(images);
-    //
-    // task.events.listen((StorageTaskEvent storageTaskEvent) {
-    //   if (storageTaskEvent.type == StorageTaskEventType.progress) {
-    //     print("carregando");
-    //     loading = true;
-    //   } else if (storageTaskEvent.type == StorageTaskEventType.success) {
-    //     getUser();
-    //     print("finalizado");
-    //     loading = false;
-    //   }
-    // });
+    StorageUploadTask task =
+        await _userRepositoryController.uploadImageUser(images);
+
+    task.events.listen((StorageTaskEvent storageTaskEvent) {
+      if (storageTaskEvent.type == StorageTaskEventType.progress) {
+        print("carregando");
+        loading = true;
+      } else if (storageTaskEvent.type == StorageTaskEventType.success) {
+        getUser();
+        print("finalizado");
+        loading = false;
+      }
+    });
   }
 
   updateUser() {
     loading = true;
     user.name = name;
 
-    // _userRepositoryController.setUser(user);
-    // _userRepositoryController.saveUser().whenComplete(() {
-    //   getUser();
-    //   loading = false;
-    // });
+    _userRepositoryController.setUser(user);
+    _userRepositoryController.saveUser().whenComplete(() {
+      getUser();
+      loading = false;
+    });
   }
 
   save() {
