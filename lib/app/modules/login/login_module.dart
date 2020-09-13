@@ -1,10 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-
-import 'login_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'login_controller.dart';
 import 'login_page.dart';
 
 class LoginModule extends WidgetModule {
@@ -21,5 +18,5 @@ class LoginModule extends WidgetModule {
   static Inject get to => Inject<LoginModule>.of();
 
   @override
-  Widget get view =>  LoginPage();
+  Widget get view => LoginPage();
 }

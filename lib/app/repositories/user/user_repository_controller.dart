@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/models/user_model.dart';
 import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
 import 'package:manaus_verde/app/repositories/user/repository/interfaces/user_repository_interface.dart';
 import 'package:manaus_verde/app/shared/utils/user_util.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 part 'user_repository_controller.g.dart';
 
@@ -39,13 +39,8 @@ abstract class _UserRepositoryControllerBase with Store {
       DocumentSnapshot snapshot = await _userRepository.getUser();
       Map<String, dynamic> data = snapshot.data;
       if (data.isNotEmpty) {
-        UserModel userLocal = UserModel(
-          idUser: snapshot.documentID,
-          name: data["name"],
-          email: data["email"],
-          userType: data["userType"],
-          pathPhoto: data["pathPhoto"],
-        );
+        UserModel userLocal = UserModel.fromJson(data);
+        userLocal.idUser = snapshot.documentID;
         setUser(userLocal);
         return user;
       }
@@ -55,16 +50,11 @@ abstract class _UserRepositoryControllerBase with Store {
   }
 
   Future<UserModel> getUserId(String idUser) async {
-    DocumentSnapshot snapshot = await _userRepository.getUserId(idUser);
-    Map<String, dynamic> data = snapshot.data;
-    if (data.isNotEmpty) {
-      UserModel userLocal = UserModel(
-        idUser: snapshot.documentID,
-        name: data["name"],
-        email: data["email"],
-        userType: data["userType"],
-        pathPhoto: data["pathPhoto"],
-      );
+    final snapshot = await _userRepository.getUserId(idUser);
+    final data = snapshot.data;
+    if (data != null) {
+      UserModel userLocal = UserModel.fromJson(data);
+      userLocal.idUser = snapshot.documentID;
       return userLocal;
     } else {
       return null;

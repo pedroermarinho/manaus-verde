@@ -5,6 +5,4 @@ part 'show_dialog_custom_controller.g.dart';
 class ShowDialogCustomController = _ShowDialogCustomControllerBase
     with _$ShowDialogCustomController;
 
-abstract class _ShowDialogCustomControllerBase with Store {
-
-}
+abstract class _ShowDialogCustomControllerBase with Store {}

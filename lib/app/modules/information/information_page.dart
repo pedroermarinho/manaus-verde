@@ -206,7 +206,7 @@ class _InformationPageState
                         ),
 
                         Padding(
-                          padding: EdgeInsets.only(left: 20,top: 5,bottom: 5),
+                          padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -219,11 +219,13 @@ class _InformationPageState
                                       color: Colors.black87,
                                     ),
                                   ),
-                                  Text(controller.media.toString(),
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),)
+                                  Text(
+                                    controller.media.toString(),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                  )
                                 ],
                               ),
                             ],

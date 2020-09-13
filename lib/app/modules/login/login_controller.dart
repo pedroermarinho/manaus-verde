@@ -1,8 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 part 'login_controller.g.dart';
 
@@ -30,20 +30,8 @@ abstract class _LoginControllerBase with Store {
   @action
   setPassword(String value) => password = value;
 
-  // @action
-  // Future loginWithGoogle() async {
-  //   try {
-  //     loading = true;
-  //     await _auth.loginWithGoogle();
-  //     Modular.to.pushReplacementNamed("/home");
-  //   } catch (e) {
-  //     loading = false;
-  //   }
-  // }
-
   @action
   Future loginWithEmailPasswordLogin() async {
-    pushHome();
     messageError = "";
     try {
       loading = true;
@@ -72,8 +60,6 @@ abstract class _LoginControllerBase with Store {
     } catch (e) {
       loading = false;
     }
-
-
   }
 
   Future pushRegister() {

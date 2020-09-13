@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/models/favorite_model.dart';
 import 'package:manaus_verde/app/repositories/favorite/repository/interfaces/favorite_repository_interface.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 part 'favorite_repository_controller.g.dart';
 
@@ -18,14 +18,12 @@ abstract class _FavoriteRepositoryControllerBase with Store {
   /// usado para saber se o usuario favoritou ou não um marcador
   Future<FavoriteModel> getFavoriteMarker(String idMarker) async {
     final documentSnapshot =
-    await _favoriteRepository.getFavoriteMarker(idMarker);
+        await _favoriteRepository.getFavoriteMarker(idMarker);
     if (documentSnapshot.data != null) {
-      final Map<String, dynamic> data = documentSnapshot.data;
-      final FavoriteModel favorite = FavoriteModel(
-        idFavorite: documentSnapshot.documentID,
-        idMarker: data["idMarker"],
-        idUser: data["idUser"],
-      );
+      final data = documentSnapshot.data;
+
+      final favorite = FavoriteModel.fromJson(data);
+      favorite.idFavorite = documentSnapshot.documentID;
       return favorite;
     } else {
       return null;
@@ -38,16 +36,15 @@ abstract class _FavoriteRepositoryControllerBase with Store {
   Future<List<FavoriteModel>> getFavoriteMarkers(String idMarker) async {
     List<FavoriteModel> listFavorite = List();
     final listQuerySnapshot =
-    await _favoriteRepository.getFavoriteMarkers(idMarker).toList();
+        await _favoriteRepository.getFavoriteMarkers(idMarker).toList();
 
     for (var querySnapshot in listQuerySnapshot) {
       for (var documents in querySnapshot.documents) {
         final Map<String, dynamic> data = documents.data;
-        final FavoriteModel favorite = FavoriteModel(
-          idFavorite: documents.documentID,
-          idMarker: data["idMarker"],
-          idUser: data["idUser"],
-        );
+
+        final favorite = FavoriteModel.fromJson(data);
+        favorite.idFavorite = documents.documentID;
+
         listFavorite.add(favorite);
       }
     }

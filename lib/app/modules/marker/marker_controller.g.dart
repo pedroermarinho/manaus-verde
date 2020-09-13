@@ -46,63 +46,78 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
     });
   }
 
-  final _$dmAtom = Atom(name: '_MarkerControllerBase.dm');
+  final _$paperAtom = Atom(name: '_MarkerControllerBase.paper');
 
   @override
-  bool get dm {
-    _$dmAtom.reportRead();
-    return super.dm;
+  bool get paper {
+    _$paperAtom.reportRead();
+    return super.paper;
   }
 
   @override
-  set dm(bool value) {
-    _$dmAtom.reportWrite(value, super.dm, () {
-      super.dm = value;
+  set paper(bool value) {
+    _$paperAtom.reportWrite(value, super.paper, () {
+      super.paper = value;
     });
   }
 
-  final _$dvAtom = Atom(name: '_MarkerControllerBase.dv');
+  final _$glassAtom = Atom(name: '_MarkerControllerBase.glass');
 
   @override
-  bool get dv {
-    _$dvAtom.reportRead();
-    return super.dv;
+  bool get glass {
+    _$glassAtom.reportRead();
+    return super.glass;
   }
 
   @override
-  set dv(bool value) {
-    _$dvAtom.reportWrite(value, super.dv, () {
-      super.dv = value;
+  set glass(bool value) {
+    _$glassAtom.reportWrite(value, super.glass, () {
+      super.glass = value;
     });
   }
 
-  final _$daAtom = Atom(name: '_MarkerControllerBase.da');
+  final _$plasticAtom = Atom(name: '_MarkerControllerBase.plastic');
 
   @override
-  bool get da {
-    _$daAtom.reportRead();
-    return super.da;
+  bool get plastic {
+    _$plasticAtom.reportRead();
+    return super.plastic;
   }
 
   @override
-  set da(bool value) {
-    _$daAtom.reportWrite(value, super.da, () {
-      super.da = value;
+  set plastic(bool value) {
+    _$plasticAtom.reportWrite(value, super.plastic, () {
+      super.plastic = value;
     });
   }
 
-  final _$diAtom = Atom(name: '_MarkerControllerBase.di');
+  final _$organicAtom = Atom(name: '_MarkerControllerBase.organic');
 
   @override
-  bool get di {
-    _$diAtom.reportRead();
-    return super.di;
+  bool get organic {
+    _$organicAtom.reportRead();
+    return super.organic;
   }
 
   @override
-  set di(bool value) {
-    _$diAtom.reportWrite(value, super.di, () {
-      super.di = value;
+  set organic(bool value) {
+    _$organicAtom.reportWrite(value, super.organic, () {
+      super.organic = value;
+    });
+  }
+
+  final _$electronicAtom = Atom(name: '_MarkerControllerBase.electronic');
+
+  @override
+  bool get electronic {
+    _$electronicAtom.reportRead();
+    return super.electronic;
+  }
+
+  @override
+  set electronic(bool value) {
+    _$electronicAtom.reportWrite(value, super.electronic, () {
+      super.electronic = value;
     });
   }
 
@@ -118,55 +133,6 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
   set marker(MarkerModel value) {
     _$markerAtom.reportWrite(value, super.marker, () {
       super.marker = value;
-    });
-  }
-
-  final _$selectedMarkerAtom =
-      Atom(name: '_MarkerControllerBase.selectedMarker');
-
-  @override
-  TypeMarkerModel get selectedMarker {
-    _$selectedMarkerAtom.reportRead();
-    return super.selectedMarker;
-  }
-
-  @override
-  set selectedMarker(TypeMarkerModel value) {
-    _$selectedMarkerAtom.reportWrite(value, super.selectedMarker, () {
-      super.selectedMarker = value;
-    });
-  }
-
-  final _$dropdownMenuItemsAtom =
-      Atom(name: '_MarkerControllerBase.dropdownMenuItems');
-
-  @override
-  ObservableList<DropdownMenuItem<TypeMarkerModel>> get dropdownMenuItems {
-    _$dropdownMenuItemsAtom.reportRead();
-    return super.dropdownMenuItems;
-  }
-
-  @override
-  set dropdownMenuItems(
-      ObservableList<DropdownMenuItem<TypeMarkerModel>> value) {
-    _$dropdownMenuItemsAtom.reportWrite(value, super.dropdownMenuItems, () {
-      super.dropdownMenuItems = value;
-    });
-  }
-
-  final _$dropdownMenuValueAtom =
-      Atom(name: '_MarkerControllerBase.dropdownMenuValue');
-
-  @override
-  DropdownMenuItem<TypeMarkerModel> get dropdownMenuValue {
-    _$dropdownMenuValueAtom.reportRead();
-    return super.dropdownMenuValue;
-  }
-
-  @override
-  set dropdownMenuValue(DropdownMenuItem<TypeMarkerModel> value) {
-    _$dropdownMenuValueAtom.reportWrite(value, super.dropdownMenuValue, () {
-      super.dropdownMenuValue = value;
     });
   }
 
@@ -219,44 +185,55 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
       ActionController(name: '_MarkerControllerBase');
 
   @override
-  dynamic setDm(bool value) {
+  dynamic setPaper(bool value) {
     final _$actionInfo = _$_MarkerControllerBaseActionController.startAction(
-        name: '_MarkerControllerBase.setDm');
+        name: '_MarkerControllerBase.setPaper');
     try {
-      return super.setDm(value);
+      return super.setPaper(value);
     } finally {
       _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setDv(bool value) {
+  dynamic setGlass(bool value) {
     final _$actionInfo = _$_MarkerControllerBaseActionController.startAction(
-        name: '_MarkerControllerBase.setDv');
+        name: '_MarkerControllerBase.setGlass');
     try {
-      return super.setDv(value);
+      return super.setGlass(value);
     } finally {
       _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setDa(bool value) {
+  dynamic setPlastic(bool value) {
     final _$actionInfo = _$_MarkerControllerBaseActionController.startAction(
-        name: '_MarkerControllerBase.setDa');
+        name: '_MarkerControllerBase.setPlastic');
     try {
-      return super.setDa(value);
+      return super.setPlastic(value);
     } finally {
       _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setDi(bool value) {
+  dynamic setOrganic(bool value) {
     final _$actionInfo = _$_MarkerControllerBaseActionController.startAction(
-        name: '_MarkerControllerBase.setDi');
+        name: '_MarkerControllerBase.setOrganic');
     try {
-      return super.setDi(value);
+      return super.setOrganic(value);
+    } finally {
+      _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setElectronic(bool value) {
+    final _$actionInfo = _$_MarkerControllerBaseActionController.startAction(
+        name: '_MarkerControllerBase.setElectronic');
+    try {
+      return super.setElectronic(value);
     } finally {
       _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -274,11 +251,11 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
   }
 
   @override
-  dynamic setDescrcao(String value) {
+  dynamic setDescription(String value) {
     final _$actionInfo = _$_MarkerControllerBaseActionController.startAction(
-        name: '_MarkerControllerBase.setDescrcao');
+        name: '_MarkerControllerBase.setDescription');
     try {
-      return super.setDescrcao(value);
+      return super.setDescription(value);
     } finally {
       _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -290,17 +267,6 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
         name: '_MarkerControllerBase.setMarker');
     try {
       return super.setMarker(value);
-    } finally {
-      _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic setSelectedMarker(TypeMarkerModel value) {
-    final _$actionInfo = _$_MarkerControllerBaseActionController.startAction(
-        name: '_MarkerControllerBase.setSelectedMarker');
-    try {
-      return super.setSelectedMarker(value);
     } finally {
       _$_MarkerControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -322,14 +288,12 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
     return '''
 name: ${name},
 description: ${description},
-dm: ${dm},
-dv: ${dv},
-da: ${da},
-di: ${di},
+paper: ${paper},
+glass: ${glass},
+plastic: ${plastic},
+organic: ${organic},
+electronic: ${electronic},
 marker: ${marker},
-selectedMarker: ${selectedMarker},
-dropdownMenuItems: ${dropdownMenuItems},
-dropdownMenuValue: ${dropdownMenuValue},
 messageError: ${messageError},
 loading: ${loading},
 position: ${position},

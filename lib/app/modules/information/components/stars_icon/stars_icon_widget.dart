@@ -27,44 +27,44 @@ class StarsIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(star1 ? Icons.star : Icons.star_border),
-            onPressed: () {
-              function(1);
-            },
-            iconSize: 45,
-          ),
-          IconButton(
-            icon: Icon(star2 ? Icons.star : Icons.star_border),
-            onPressed: () {
-              function(2);
-            },
-            iconSize: 45,
-          ),
-          IconButton(
-            icon: Icon(star3 ? Icons.star : Icons.star_border),
-            onPressed: () {
-              function(3);
-            },
-            iconSize: 45,
-          ),
-          IconButton(
-            icon: Icon(star4 ? Icons.star : Icons.star_border),
-            onPressed: () {
-              function(4);
-            },
-            iconSize: 45,
-          ),
-          IconButton(
-            icon: Icon(star5 ? Icons.star : Icons.star_border),
-            onPressed: () {
-              function(5);
-            },
-            iconSize: 45,
-          ),
-        ],
-      );
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(star1 ? Icons.star : Icons.star_border),
+          onPressed: () {
+            function(1);
+          },
+          iconSize: 45,
+        ),
+        IconButton(
+          icon: Icon(star2 ? Icons.star : Icons.star_border),
+          onPressed: () {
+            function(2);
+          },
+          iconSize: 45,
+        ),
+        IconButton(
+          icon: Icon(star3 ? Icons.star : Icons.star_border),
+          onPressed: () {
+            function(3);
+          },
+          iconSize: 45,
+        ),
+        IconButton(
+          icon: Icon(star4 ? Icons.star : Icons.star_border),
+          onPressed: () {
+            function(4);
+          },
+          iconSize: 45,
+        ),
+        IconButton(
+          icon: Icon(star5 ? Icons.star : Icons.star_border),
+          onPressed: () {
+            function(5);
+          },
+          iconSize: 45,
+        ),
+      ],
+    );
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
@@ -48,16 +47,13 @@ abstract class _ShowFavoriteListControllerBase with Store {
     await _favoriteRepositoryController.getFavoritesUser().then((value) {
       value.listen((event) {
         for (var documents in event.documents) {
-          final Map<String, dynamic> data = documents.data;
-          final FavoriteModel favorite = FavoriteModel(
-            idFavorite: documents.documentID,
-            idMarker: data["idMarker"],
-            idUser: data["idUser"],
-          );
+          final  data = documents.data;
+          final favorite = FavoriteModel.fromJson(data);
+          favorite.idFavorite =documents.documentID;
           loadListWidget(favorite, context);
         }
-      });
-    });
+      },);
+    },);
   }
 
   loadListWidget(FavoriteModel favorite, BuildContext context) async {

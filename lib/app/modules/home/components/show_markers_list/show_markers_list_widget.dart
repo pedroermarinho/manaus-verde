@@ -21,7 +21,7 @@ class ShowMarkersListWidget {
       leading: Icon(
         icon,
         size: 40,
-        color: Color(0xffe6c131),
+        color: Colors.green,
       ),
     );
   }
@@ -38,33 +38,41 @@ class ShowMarkersListWidget {
           content: Column(
             children: <Widget>[
               itemListTile(
-                icon: FontAwesomeIcons.accessibleIcon,
-                labelText: "Deficiência Motora",
+                icon: FontAwesomeIcons.newspaper,
+                labelText: "Papel",
                 onTap: () {
-                  controller.getDM();
+                  controller.getPaper();
                   Navigator.pop(context);
                 },
               ),
               itemListTile(
-                  icon: FontAwesomeIcons.blind,
-                  labelText: "Deficiência Visual",
+                  icon: FontAwesomeIcons.glassCheers,
+                  labelText: "Vidro",
                   onTap: () {
-                    controller.getDV();
+                    controller.getGlass();
                     Navigator.pop(context);
                   }),
               itemListTile(
-                icon: FontAwesomeIcons.signLanguage,
-                labelText: "Deficiência Auditiva",
+                icon: FontAwesomeIcons.shoppingBasket,
+                labelText: "Plástico",
                 onTap: () {
-                  controller.getDA();
+                  controller.getPlastic();
                   Navigator.pop(context);
                 },
               ),
               itemListTile(
-                icon: FontAwesomeIcons.brain,
-                labelText: "Deficiência Intelectual",
+                icon: FontAwesomeIcons.apple,
+                labelText: "Orgânico",
                 onTap: () {
-                  controller.getDI();
+                  controller.getOrganic();
+                  Navigator.pop(context);
+                },
+              ),
+              itemListTile(
+                icon: FontAwesomeIcons.microchip,
+                labelText: "Eletrônico",
+                onTap: () {
+                  controller.getElectronic();
                   Navigator.pop(context);
                 },
               ),

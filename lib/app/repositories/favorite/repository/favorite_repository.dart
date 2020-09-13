@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/native_imp.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/models/favorite_model.dart';
 import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
@@ -14,18 +13,20 @@ class FavoriteRepository implements IFavoriteRepository {
   final String _collectionDB = "favorite";
   final AuthRepositoryController _authController = Modular.get();
   @override
-  Future deleteFavoriteMarker(String idMarker) async{
+  Future deleteFavoriteMarker(String idMarker) async {
+    final userAuth = await _authController.userAuth;
     return await _firestore
         .collection(_collectionDB)
-        .document(idMarker + _authController.userAuth.uid)
+        .document(idMarker + userAuth.uid)
         .delete();
   }
 
   @override
-  Future<DocumentSnapshot> getFavoriteMarker(String idMarker)async {
+  Future<DocumentSnapshot> getFavoriteMarker(String idMarker) async {
+    final userAuth = await _authController.userAuth;
     return await _firestore
         .collection(_collectionDB)
-        .document(idMarker + _authController.userAuth.uid)
+        .document(idMarker + userAuth.uid)
         .get();
   }
 
@@ -33,28 +34,29 @@ class FavoriteRepository implements IFavoriteRepository {
   Stream<QuerySnapshot> getFavoriteMarkers(String idMarker) {
     return _firestore
         .collection(_collectionDB)
-        .where("idMarker", isEqualTo: idMarker)
+        .where("id_marker", isEqualTo: idMarker)
         .snapshots();
   }
 
   @override
-  Stream<QuerySnapshot> getFavoritesUser() {
+  Future<Stream<QuerySnapshot>> getFavoritesUser() async {
+    final userAuth = await _authController.userAuth;
     return _firestore
         .collection(_collectionDB)
-        .where("idUser", isEqualTo: _authController.userAuth.uid)
+        .where("id_user", isEqualTo: userAuth.uid)
         .snapshots();
   }
 
   @override
-  Future saveFavoriteMarker(String idMarker) async{
+  Future saveFavoriteMarker(String idMarker) async {
+    final userAuth = await _authController.userAuth;
     FavoriteModel favoriteModel = FavoriteModel(
       idMarker: idMarker,
-      idUser: _authController.userAuth.uid,
+      idUser: userAuth.uid,
     );
     return await _firestore
         .collection(_collectionDB)
-        .document(idMarker + _authController.userAuth.uid)
+        .document(idMarker + userAuth.uid)
         .setData(favoriteModel.toMap());
   }
-  
 }

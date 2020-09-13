@@ -25,7 +25,6 @@ class _RegisterPageState
       ),
       body: Container(
         padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.black),
         child: Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.all(16),
@@ -70,13 +69,12 @@ class _RegisterPageState
                 Padding(
                     padding: EdgeInsets.only(top: 0),
                     child: Observer(builder: (_) {
-                      return RaisedButton(
+                      return FlatButton(
                         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: Text(
                           "Cadastrar",
-                          style: TextStyle(color: Colors.white, fontSize: 25),
+                          style: TextStyle(fontSize: 25),
                         ),
-                        color: Colors.black87,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(32)),
                         onPressed:

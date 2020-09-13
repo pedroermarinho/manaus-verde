@@ -4,6 +4,4 @@ part 'comments_controller.g.dart';
 
 class CommentsController = _CommentsControllerBase with _$CommentsController;
 
-abstract class _CommentsControllerBase with Store {
-
-}
+abstract class _CommentsControllerBase with Store {}

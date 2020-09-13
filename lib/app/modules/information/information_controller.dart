@@ -9,16 +9,16 @@ import 'package:manaus_verde/app/models/favorite_model.dart';
 import 'package:manaus_verde/app/models/marker_model.dart';
 import 'package:manaus_verde/app/models/user_model.dart';
 import 'package:manaus_verde/app/modules/information/components/marker_icon_detector/marker_icon_detector_widget.dart';
-import 'package:manaus_verde/app/modules/information/repositories/comment/comment_repository_controller.dart';
-import 'package:manaus_verde/app/modules/information/repositories/stars/stars_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/comment/comment_repository_controller.dart';
 import 'package:manaus_verde/app/repositories/favorite/favorite_repository_controller.dart';
 import 'package:manaus_verde/app/repositories/marker/marker_repository_controller.dart';
+import 'package:manaus_verde/app/repositories/stars/stars_repository_controller.dart';
 import 'package:manaus_verde/app/repositories/user/user_repository_controller.dart';
-import 'package:manaus_verde/app/repositories/auth/auth_repository_controller.dart';
 import 'package:manaus_verde/app/shared/utils/type_user.dart';
 import 'package:mobx/mobx.dart';
 
-import 'models/stars_model.dart';
+import '../../models/stars_model.dart';
 
 part 'information_controller.g.dart';
 
@@ -33,10 +33,11 @@ abstract class _InformationControllerBase with Store {
   final _favoriteRepositoryController =
       Modular.get<FavoriteRepositoryController>();
 
- final _commentRepositoryController =Modular.get<CommentRepositoryController>();
+  final _commentRepositoryController =
+      Modular.get<CommentRepositoryController>();
 
   final _starsRepositoryController = Modular.get<StarsRepositoryController>();
-  final _authRepositoryController = Modular.get<AuthRepositoryController>();
+  final _authController = Modular.get<AuthRepositoryController>();
 
   @observable
   UserModel userMarker;
@@ -91,35 +92,44 @@ abstract class _InformationControllerBase with Store {
 
   ///
   iconsAss() {
-    if (marker.dm) {
+    if (marker.paper) {
       iconsAssList.add(MarkerIconDetectorWidget(
-        icon: FontAwesomeIcons.accessibleIcon,
-        labelText: "Deficiência Motora",
+        icon: FontAwesomeIcons.newspaper,
+        labelText: "Papel",
       ));
     }
-    if (marker.dv) {
+    if (marker.glass) {
       iconsAssList.add(
         MarkerIconDetectorWidget(
-          icon: FontAwesomeIcons.blind,
-          labelText: "Deficiência Visual",
+          icon: FontAwesomeIcons.glassCheers,
+          labelText: "Vidro",
         ),
       );
     }
-    if (marker.da) {
+    if (marker.plastic) {
       iconsAssList.add(
         MarkerIconDetectorWidget(
-          icon: FontAwesomeIcons.signLanguage,
-          labelText: "Deficiência Auditiva",
+          icon: FontAwesomeIcons.shoppingBasket,
+          labelText: "Plástico",
         ),
       );
     }
 
-    ///
-    if (marker.di) {
-      iconsAssList.add(MarkerIconDetectorWidget(
-        icon: FontAwesomeIcons.brain,
-        labelText: "Deficiência Intelectual",
-      ));
+    if (marker.organic) {
+      iconsAssList.add(
+        MarkerIconDetectorWidget(
+          icon: FontAwesomeIcons.apple,
+          labelText: "Orgânico",
+        ),
+      );
+    }
+    if (marker.electronic) {
+      iconsAssList.add(
+        MarkerIconDetectorWidget(
+          icon: FontAwesomeIcons.microchip,
+          labelText: "Eletrônico",
+        ),
+      );
     }
   }
 
@@ -182,16 +192,21 @@ abstract class _InformationControllerBase with Store {
   setStars(StarsModel value) => stars = value;
 
   getStars() async {
-    _starsRepositoryController.getStarsUser(marker.idMarker).then(setStars).whenComplete(loadStars);
+    _starsRepositoryController
+        .getStarsUser(marker.idMarker)
+        .then(setStars)
+        .whenComplete(loadStars);
   }
 
   @action
-  salveStars(int value) {
+  salveStars(int value) async {
+    final userAuth = await _authController.userAuth;
     if (stars == null) {
       stars = StarsModel(
-          idMarker: marker.idMarker,
-          idUser: _authRepositoryController.userAuth.uid,
-          stars: value);
+        idMarker: marker.idMarker,
+        idUser: userAuth.uid,
+        stars: value,
+      );
       _starsRepositoryController.saveStars(stars).whenComplete(loadStars);
     } else {
       stars.stars = value;
@@ -208,19 +223,19 @@ abstract class _InformationControllerBase with Store {
   }
 
   @observable
-  bool star1=false;
+  bool star1 = false;
 
   @observable
-  bool star2=false;
+  bool star2 = false;
 
   @observable
-  bool star3=false;
+  bool star3 = false;
 
   @observable
-  bool star4=false;
+  bool star4 = false;
 
   @observable
-  bool star5=false;
+  bool star5 = false;
 
   @action
   loadStars() {
@@ -234,13 +249,13 @@ abstract class _InformationControllerBase with Store {
   @observable
   double media = 0;
 
-  mediaStars(){
+  mediaStars() {
     _starsRepositoryController.getStars(marker.idMarker).listen((event) {
       media = 0;
       List<DocumentSnapshot> list = event.documents;
-      int listlength =list.length;
+      int listlength = list.length;
       list.forEach((element) {
-        media +=element.data["stars"]/listlength;
+        media += element.data["stars"] / listlength;
       });
     });
   }

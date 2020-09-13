@@ -6,6 +6,7 @@ import 'package:manaus_verde/app/components/google_map_custom/google_map_custom_
 import 'package:manaus_verde/app/components/sidebar/sidebar_widget.dart';
 import 'package:manaus_verde/app/modules/home/components/show_favorite_list/show_favorite_list_widget.dart';
 import 'package:manaus_verde/app/modules/home/components/show_markers_list/show_markers_list_widget.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +22,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -44,7 +44,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: Color(0xffe6c131),
+                        color: Colors.green,
                         width: 1,
                       ),
                       borderRadius: BorderRadius.circular(3),
@@ -66,7 +66,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                 height: 10,
                                 child: Icon(
                                   Icons.location_on,
-                                  color: Color(0xffe6c131),
+                                  color: Colors.green,
                                 ),
                               ),
                               hintText: "Meu local",
@@ -78,9 +78,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           ),
                           controller.listWidgetOptionsAddress.isNotEmpty
                               ? Column(
-                            children: controller.listWidgetOptionsAddress
-                                .toList(),
-                          )
+                                  children: controller.listWidgetOptionsAddress
+                                      .toList(),
+                                )
                               : Container(),
                         ],
                       );
@@ -96,7 +96,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xffe6c131), width: 2),
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 2,
+                  ),
                   borderRadius: BorderRadius.circular(32),
                   color: Colors.transparent,
                 ),
@@ -117,7 +120,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     IconButton(
                       iconSize: 35,
                       icon: Icon(
-                        Icons.accessible,
+                        Icons.delete,
                       ),
                       color: Colors.black,
                       onPressed: () {

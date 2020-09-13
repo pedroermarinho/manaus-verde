@@ -1,12 +1,10 @@
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/models/user_model.dart';
 
-abstract class IUserRepository  {
+abstract class IUserRepository {
   Future<DocumentSnapshot> getUser();
 
   Future deleteUser();

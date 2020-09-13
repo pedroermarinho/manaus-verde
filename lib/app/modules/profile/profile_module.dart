@@ -11,11 +11,11 @@ class ProfileModule extends WidgetModule {
 
   @override
   List<ModularRouter> get routers => [
-    ModularRouter(Modular.initialRoute, child: (_, args) => ProfilePage()),
+        ModularRouter(Modular.initialRoute, child: (_, args) => ProfilePage()),
       ];
 
   static Inject get to => Inject<ProfileModule>.of();
 
   @override
-  Widget get view =>  ProfilePage();
+  Widget get view => ProfilePage();
 }

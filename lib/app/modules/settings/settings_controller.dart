@@ -97,16 +97,18 @@ abstract class _SettingsControllerBase with Store {
     StorageUploadTask task =
         await _userRepositoryController.uploadImageUser(images);
 
-    task.events.listen((StorageTaskEvent storageTaskEvent) {
-      if (storageTaskEvent.type == StorageTaskEventType.progress) {
-        print("carregando");
-        loading = true;
-      } else if (storageTaskEvent.type == StorageTaskEventType.success) {
-        getUser();
-        print("finalizado");
-        loading = false;
-      }
-    });
+    task.events.listen(
+      (StorageTaskEvent storageTaskEvent) {
+        if (storageTaskEvent.type == StorageTaskEventType.progress) {
+          print("carregando");
+          loading = true;
+        } else if (storageTaskEvent.type == StorageTaskEventType.success) {
+          getUser();
+          print("finalizado");
+          loading = false;
+        }
+      },
+    );
   }
 
   updateUser() {

@@ -29,7 +29,6 @@ class _SettingsPageState
                   child: CircularProgressIndicator(),
                 )
               : Container(
-                  color: Colors.black,
                   child: Center(
                     child: SingleChildScrollView(
                       padding: EdgeInsets.all(15),
@@ -38,7 +37,6 @@ class _SettingsPageState
                           Observer(builder: (_) {
                             return CircleAvatar(
                               radius: 100,
-                              backgroundColor: Color(0xffe6c131),
                               backgroundImage: controller.images == null
                                   ? NetworkImage(controller.user.pathPhoto)
                                   : FileImage(controller.images),
@@ -50,8 +48,7 @@ class _SettingsPageState
                               FlatButton(
                                 child: Text(
                                   "Câmera",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                  style: TextStyle(fontSize: 18),
                                 ),
                                 onPressed: () {
                                   controller.getImage("camera");
@@ -60,8 +57,7 @@ class _SettingsPageState
                               FlatButton(
                                 child: Text(
                                   "Galeria",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                  style: TextStyle(fontSize: 18),
                                 ),
                                 onPressed: () {
                                   controller.getImage("galeria");
@@ -83,15 +79,14 @@ class _SettingsPageState
                           Padding(
                             padding: EdgeInsets.only(top: 20),
                             child: Observer(builder: (_) {
-                              return RaisedButton(
+                              return FlatButton(
                                 child: Text(
                                   "Salvar",
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
+                                    fontSize: 25,
                                   ),
                                 ),
-                                color: Color(0xffe6c131),
+                                color: Colors.green,
                                 padding: EdgeInsets.fromLTRB(32, 16, 36, 16),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(32)),

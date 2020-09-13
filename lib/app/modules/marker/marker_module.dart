@@ -13,7 +13,7 @@ class MarkerModule extends WidgetModule {
 
   @override
   List<ModularRouter> get routers => [
-    ModularRouter(Modular.initialRoute,
+        ModularRouter(Modular.initialRoute,
             child: (_, args) => MarkerPage(
                   marker: args.data,
                 )),
@@ -24,6 +24,6 @@ class MarkerModule extends WidgetModule {
   @override
   // TODO: implement view
   Widget get view => MarkerPage(
-    marker: Modular.args.data,
-  );
+        marker: Modular.args.data,
+      );
 }

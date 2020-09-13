@@ -1,11 +1,10 @@
-
 import 'dart:io';
 
 import 'package:flutter_native_image/flutter_native_image.dart';
 
 Future<File> compressImage(File fileImage) async {
   ImageProperties properties =
-  await FlutterNativeImage.getImageProperties(fileImage.path);
+      await FlutterNativeImage.getImageProperties(fileImage.path);
 
   File compressedFile = await FlutterNativeImage.compressImage(
     fileImage.path,

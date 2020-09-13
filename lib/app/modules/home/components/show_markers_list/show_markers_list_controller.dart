@@ -10,21 +10,27 @@ class ShowMarkersListController = _ShowMarkersListControllerBase
 abstract class _ShowMarkersListControllerBase with Store {
   final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
 
-  getDA() {
-    _googleMapCustomController.loadMarkersCategories("da");
+  getPaper() {
+    _googleMapCustomController.loadMarkersCategories("paper");
   }
 
-  getDI() {
-    _googleMapCustomController.loadMarkersCategories("di");
+  getGlass() {
+    _googleMapCustomController.loadMarkersCategories("glass");
   }
 
-  getDM() {
-    _googleMapCustomController.loadMarkersCategories("dm");
+  getPlastic() {
+    _googleMapCustomController.loadMarkersCategories("plastic");
   }
 
-  getDV() {
-    _googleMapCustomController.loadMarkersCategories("dv");
+  getOrganic() {
+    _googleMapCustomController.loadMarkersCategories("organic");
   }
+
+  getElectronic() {
+    _googleMapCustomController.loadMarkersCategories("electronic");
+  }
+
+
 
   getALL() {
     _googleMapCustomController.loadMarkersCategories("all");

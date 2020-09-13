@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/models/marker_model.dart';
 import 'package:manaus_verde/app/repositories/marker/repository/interfaces/marker_repository_interface.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 part 'marker_repository_controller.g.dart';
 
@@ -42,21 +42,10 @@ abstract class _MarkerRepositoryControllerBase with Store {
   Future getMarker(String idMarker) async {
     DocumentSnapshot snapshot = await _markerRepository.getMarker(idMarker);
 
-    Map<String, dynamic> data = snapshot.data;
+    final data = snapshot.data;
 
-    var markerLocal = MarkerModel(
-      idMarker: snapshot.documentID,
-      idUserCreator: data["idUserCreator"],
-      idTypeMarker: data["idTypeMarker"],
-      title: data["title"],
-      description: data["description"],
-      da: data["da"],
-      di: data["di"],
-      dm: data["dm"],
-      dv: data["dv"],
-      latitude: data["latitude"],
-      longitude: data["longitude"],
-    );
+    var markerLocal = MarkerModel.fromJson(data);
+    markerLocal.idMarker = snapshot.documentID;
     setMarker(markerLocal);
     return marker;
   }

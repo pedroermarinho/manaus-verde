@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manaus_verde/app/components/google_map_custom/google_map_custom_controller.dart';
 import 'package:manaus_verde/app/components/show_dialog_custom/show_dialog_custom_widget.dart';
 import 'package:mobx/mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'home_controller.g.dart';
@@ -57,42 +57,46 @@ abstract class _HomeControllerBase with Store {
     if (address.isNotEmpty) {
       _googleMapCustomController
           .optionsAddress(address)
-          .then((listaEnderecos) {
-        if (listaEnderecos != null && listaEnderecos.isNotEmpty) {
-          listWidgetOptionsAddress.clear();
-          listWidgetOptionsAddress.add(
-            GestureDetector(
-              onTap: () {
+          .then(
+            (listaEnderecos) {
+              if (listaEnderecos != null && listaEnderecos.isNotEmpty) {
                 listWidgetOptionsAddress.clear();
-                newLocationPlacemark(listaEnderecos[0]);
-              },
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    listaEnderecos[0].thoroughfare +
-                        "," +
-                        listaEnderecos[0].subThoroughfare,
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                listWidgetOptionsAddress.add(
+                  GestureDetector(
+                    onTap: () {
+                      listWidgetOptionsAddress.clear();
+                      newLocationPlacemark(listaEnderecos[0]);
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          listaEnderecos[0].thoroughfare +
+                              "," +
+                              listaEnderecos[0].subThoroughfare,
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
+                        Text(
+                          "- " +
+                              listaEnderecos[0].subLocality +
+                              "," +
+                              listaEnderecos[0].subAdministrativeArea,
+                          style: TextStyle(fontSize: 16, color: Colors.black54),
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    "- " +
-                        listaEnderecos[0].subLocality +
-                        "," +
-                        listaEnderecos[0].subAdministrativeArea,
-                    style: TextStyle(fontSize: 16, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-      })
+                );
+              }
+            },
+          )
           .catchError((_) {})
-          .whenComplete(() {
-        if (this.address == null || this.address.isEmpty) {
-          listWidgetOptionsAddress.clear();
-        }
-      });
+          .whenComplete(
+            () {
+              if (this.address == null || this.address.isEmpty) {
+                listWidgetOptionsAddress.clear();
+              }
+            },
+          );
 
       return null;
     }

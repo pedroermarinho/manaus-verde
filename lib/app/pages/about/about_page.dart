@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manaus_verde/app/components/text_field_custom/text_field_custom_widget.dart';
+
 import 'about_controller.dart';
 
 class AboutPage extends StatefulWidget {
@@ -14,7 +15,6 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends ModularState<AboutPage, AboutController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +73,7 @@ class _AboutPageState extends ModularState<AboutPage, AboutController> {
                   ),
                   TextFieldCustomWidget(
                     controller:
-                    TextEditingController(text: controller.nameDevelop),
+                        TextEditingController(text: controller.nameDevelop),
                     textAlign: TextAlign.center,
                     readOnly: true,
                   ),

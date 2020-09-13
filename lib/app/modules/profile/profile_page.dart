@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/shared/utils/user_util.dart';
+
 // import 'package:manaus_verde/app/shared/utils/user_util.dart';
 
 import 'profile_controller.dart';
@@ -23,14 +24,14 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         title: Text(widget.title),
       ),
       body: ClipPath(
         clipper: ClipProfile(),
         child: Container(
           height: double.infinity,
-          color: Colors.black,
+          color: Colors.black12,
           child: Stack(
             children: <Widget>[
               Positioned(
@@ -43,7 +44,6 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                       Observer(
                         builder: (_) {
                           return CircleAvatar(
-                            backgroundColor: Colors.white,
                             radius: 70,
                             backgroundImage: controller.user == null
                                 ? NetworkImage(
@@ -66,7 +66,6 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                                   ? ""
                                   : controller.user.name,
                               style: TextStyle(
-                                color: Colors.white,
                                 fontSize: 20,
                               ),
                             );
@@ -98,7 +97,6 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                             return Text(
                               "Marcadores: ${controller.markersLength}",
                               style: TextStyle(
-                                color: Colors.white,
                                 fontSize: 16,
                               ),
                             );
@@ -121,7 +119,6 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                         Text(
                           "Favoritos:",
                           style: TextStyle(
-                            color: Colors.white,
                             fontSize: 16,
                           ),
                         ),

@@ -1,40 +1,59 @@
-class MarkerModel  {
+class MarkerModel {
   String idMarker;
-  String idTypeMarker;
   String idUserCreator;
   String title;
   String description;
-  bool dm;
-  bool dv;
-  bool da;
-  bool di;
+  bool paper;
+  bool glass;
+  bool plastic;
+  bool organic;
+  bool electronic;
   double latitude;
-  double longitude;
 
   MarkerModel({
     this.idMarker,
-    this.idTypeMarker,
     this.idUserCreator,
     this.title,
     this.description,
-    this.dm,
-    this.dv,
-    this.da,
-    this.di,
+    this.paper,
+    this.glass,
+    this.plastic,
+    this.organic,
+    this.electronic,
     this.latitude,
     this.longitude,
   });
 
+  double longitude;
+
+  factory MarkerModel.fromJson(Map<String, dynamic> json) {
+    return MarkerModel(
+      //field: json[''],
+      idMarker: json['id_marker'],
+      idUserCreator: json['id_user_creator'],
+      title: json['title'],
+      description: json['description'],
+      paper: json['paper'],
+      glass: json['glass'],
+      plastic: json['plastic'],
+      organic: json['organic'],
+      electronic: json['electronic'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+    );
+  }
+
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      "idTypeMarker": idTypeMarker,
-      "idUserCreator": idUserCreator,
+      "id_user_creator": idUserCreator,
       "title": title,
       "description": description,
-      "dm": dm,
-      "dv": dv,
-      "da": da,
-      "di": di,
+      "paper": paper,
+      "glass": glass,
+      "plastic": plastic,
+      "organic": organic,
+      "electronic": electronic,
       "latitude": latitude,
       "longitude": longitude
     };

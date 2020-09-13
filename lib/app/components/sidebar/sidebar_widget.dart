@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manaus_verde/app/components/sidebar/components/menu_item/menu_item_widget.dart';
 import 'package:manaus_verde/app/components/sidebar/sidebar_controller.dart';
+import 'package:manaus_verde/app/shared/utils/user_util.dart';
 // import 'package:manaus_verde/app/shared/utils/user_util.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -59,44 +60,43 @@ class _SidebarWidgetState extends State<SidebarWidget>
                     child: Container(
                       height: double.infinity,
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.black,
+                      color: Colors.white,
                       child: SingleChildScrollView(
                         child: Column(
                           children: <Widget>[
                             SizedBox(
                               height: 50,
                             ),
-                            // ListTile(
-                            //   title: Observer(
-                            //     builder: (_) {
-                            //       return Text(
-                            //         controller.user == null
-                            //             ? ""
-                            //             : controller.user.name,
-                            //         style: TextStyle(
-                            //           color: Colors.white,
-                            //           fontSize: 18,
-                            //           fontWeight: FontWeight.w800,
-                            //         ),
-                            //       );
-                            //     },
-                            //   ),
-                            //   leading: SizedBox(
-                            //     width: 60,
-                            //     height: 60,
-                            //     child: CircleAvatar(
-                            //       backgroundColor: Color(0xffe6c131),
-                            //       radius: 30,
-                            //       backgroundImage: controller.user == null
-                            //           ? NetworkImage(
-                            //               UserUtil.caminhoFotoUser,
-                            //             )
-                            //           : NetworkImage(
-                            //               controller.user.pathPhoto,
-                            //             ),
-                            //     ),
-                            //   ),
-                            // ),
+                            ListTile(
+                              title: Observer(
+                                builder: (_) {
+                                  return Text(
+                                    controller.user == null
+                                        ? ""
+                                        : controller.user.name,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  );
+                                },
+                              ),
+                              leading: SizedBox(
+                                width: 60,
+                                height: 60,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xffe6c131),
+                                  radius: 30,
+                                  backgroundImage: controller.user == null
+                                      ? NetworkImage(
+                                          UserUtil.caminhoFotoUser,
+                                        )
+                                      : NetworkImage(
+                                          controller.user.pathPhoto,
+                                        ),
+                                ),
+                              ),
+                            ),
                             Divider(
                               height: 40,
                               thickness: 0.5,
@@ -161,7 +161,7 @@ class _SidebarWidgetState extends State<SidebarWidget>
                           child: Container(
                             width: 36,
                             height: 115,
-                            color: Colors.black,
+                            color: Colors.white,
                             alignment: Alignment.centerLeft,
                             child: AnimatedIcon(
                               progress: controller.animationController.view,

@@ -19,18 +19,26 @@ final $AuthRepositoryController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AuthRepositoryController on _AuthRepositoryControllerBase, Store {
-  final _$userAuthAtom = Atom(name: '_AuthRepositoryControllerBase.userAuth');
+  Computed<Future<FirebaseUser>> _$userAuthComputed;
 
   @override
-  FirebaseUser get userAuth {
-    _$userAuthAtom.reportRead();
-    return super.userAuth;
+  Future<FirebaseUser> get userAuth => (_$userAuthComputed ??=
+          Computed<Future<FirebaseUser>>(() => super.userAuth,
+              name: '_AuthRepositoryControllerBase.userAuth'))
+      .value;
+
+  final _$_userAuthAtom = Atom(name: '_AuthRepositoryControllerBase._userAuth');
+
+  @override
+  FirebaseUser get _userAuth {
+    _$_userAuthAtom.reportRead();
+    return super._userAuth;
   }
 
   @override
-  set userAuth(FirebaseUser value) {
-    _$userAuthAtom.reportWrite(value, super.userAuth, () {
-      super.userAuth = value;
+  set _userAuth(FirebaseUser value) {
+    _$_userAuthAtom.reportWrite(value, super._userAuth, () {
+      super._userAuth = value;
     });
   }
 
@@ -66,8 +74,8 @@ mixin _$AuthRepositoryController on _AuthRepositoryControllerBase, Store {
   @override
   String toString() {
     return '''
-userAuth: ${userAuth},
-status: ${status}
+status: ${status},
+userAuth: ${userAuth}
     ''';
   }
 }

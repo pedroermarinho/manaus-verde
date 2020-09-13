@@ -34,7 +34,6 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
       ),
       body: Container(
         padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Colors.black),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -54,9 +53,7 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                   padding: EdgeInsets.only(bottom: 10),
                   child: TextFieldCustomWidget(
                     controller: TextEditingController(
-                        text: controller.marker != null
-                            ? controller.marker.title
-                            : ""),
+                        text: controller.marker?.title ?? ""),
                     labelText: "Nome do local",
                     textInputType: TextInputType.text,
                     onChanged: controller.setName,
@@ -73,71 +70,33 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                     labelText: "Descrição",
                     textInputType: TextInputType.multiline,
                     maxLines: null,
-                    onChanged: controller.setDescrcao,
+                    onChanged: controller.setDescription,
                     errorText: controller.validateDescription,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Container(
-                    width: double.infinity,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(32),
-                      color: Colors.white,
-                    ),
-                    child: Observer(
-                      builder: (_) {
-                        return DropdownButton(
-                          value: controller.selectedMarker,
-                          items: controller.dropdownMenuItems.toList(),
-                          isExpanded: true,
-                          underline: Container(),
-                          iconEnabledColor: Colors.black,
-                          hint: controller.marker != null
-                              ? controller.dropdownMenuValue
-                              : Padding(
-                                  padding: EdgeInsets.only(left: 30),
-                                  child: Text(
-                                    "Categoria",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                          focusColor: Colors.black,
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                          onChanged: controller.setSelectedMarker,
-                        );
-                      },
-                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 15, top: 5),
                   child: Text(
-                    "Este local é acessível para qual categorias de deficiências?",
+                    "Este local suporta quais tipos lixos?",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: TextStyle(fontSize: 18),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Row(
-//                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Observer(
                         builder: (_) {
                           return Switch(
-                            value: controller.dm,
-                            onChanged: controller.setDm,
+                            value: controller.paper,
+                            onChanged: controller.setPaper,
                           );
                         },
                       ),
                       Text(
-                        "Deficiência Motora",
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        "Papel",
+                        style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
@@ -150,14 +109,14 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                       Observer(
                         builder: (_) {
                           return Switch(
-                            value: controller.dv,
-                            onChanged: controller.setDv,
+                            value: controller.glass,
+                            onChanged: controller.setGlass,
                           );
                         },
                       ),
                       Text(
-                        "Deficiência Visual",
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        "Vidro",
+                        style: TextStyle(fontSize: 14),
                       )
                     ],
                   ),
@@ -170,14 +129,14 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                       Observer(
                         builder: (_) {
                           return Switch(
-                            value: controller.da,
-                            onChanged: controller.setDa,
+                            value: controller.plastic,
+                            onChanged: controller.setPlastic,
                           );
                         },
                       ),
                       Text(
-                        "Deficiência Auditiva",
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        "Plástico",
+                        style: TextStyle(fontSize: 14),
                       )
                     ],
                   ),
@@ -185,20 +144,38 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Row(
-//                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Observer(
                         builder: (_) {
                           return Switch(
-                            value: controller.di,
-                            onChanged: controller.setDi,
+                            value: controller.organic,
+                            onChanged: controller.setOrganic,
                           );
                         },
                       ),
                       Text(
-                        "Deficiência Intelectual",
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        "Orgânico",
+                        style: TextStyle(fontSize: 14),
                       )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Observer(
+                        builder: (_) {
+                          return Switch(
+                            value: controller.electronic,
+                            onChanged: controller.setElectronic,
+                          );
+                        },
+                      ),
+                      Text(
+                        "Eletrônico",
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ],
                   ),
                 ),
@@ -208,8 +185,7 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                         ? Padding(
                             padding: EdgeInsets.only(top: 5, bottom: 10),
                             child: Center(
-                              child: CircularProgressIndicator(
-                                  backgroundColor: Colors.white),
+                              child: CircularProgressIndicator(),
                             ),
                           )
                         : Container();
@@ -220,17 +196,16 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                   child: Observer(
                     builder: (_) {
                       return Visibility(
-                          visible: controller.isValid,
-                          child: RaisedButton(
-                            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            child: Text(
-                              "Salvar",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
-                            ),
-                            color: Colors.black87,
-                            onPressed: controller.validCampos,
-                          ));
+                        visible: controller.isValid,
+                        child: FlatButton(
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Text(
+                            "Salvar",
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          onPressed: controller.validCampos,
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -246,7 +221,7 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                       },
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

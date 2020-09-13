@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class IFavoriteRepository {
   /// Retorna o favorito com a relação entre usuario e marcador
@@ -13,7 +12,7 @@ abstract class IFavoriteRepository {
   Stream<QuerySnapshot> getFavoriteMarkers(String idMarker);
 
   /// Retornas todos os favoritos do usuario
-  Stream<QuerySnapshot> getFavoritesUser();
+  Future<Stream<QuerySnapshot>> getFavoritesUser();
 
   /// Deleta um favorito
   Future deleteFavoriteMarker(String idMarker);

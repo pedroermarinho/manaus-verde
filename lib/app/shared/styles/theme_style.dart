@@ -4,20 +4,20 @@ class AppTheme {
   ThemeData themeData() {
     return ThemeData(
       textTheme: _textTheme(),
-      primaryColor: Color(0xff181818),
+      primaryColor: Color(0xffBBBCBC),
       accentColor: Color(0xffBBBCBC),
       backgroundColor: Color(0xffefeeec),
       appBarTheme: AppBarTheme(
-        color: Colors.black,
+        color: Colors.white,
         iconTheme: IconThemeData(
-          color: Color(0xffe6c131),
+          color: Colors.green,
         ),
       ),
       accentIconTheme: IconThemeData(
-        color: Color(0xffe6c131),
+        color: Colors.green,
       ),
       iconTheme: IconThemeData(
-        color: Color(0xffe6c131),
+        color: Colors.green,
         size: 35,
       ),
     );

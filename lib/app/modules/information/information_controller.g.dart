@@ -228,6 +228,14 @@ mixin _$InformationController on _InformationControllerBase, Store {
     return _$getUserMarkerAsyncAction.run(() => super.getUserMarker());
   }
 
+  final _$salveStarsAsyncAction =
+      AsyncAction('_InformationControllerBase.salveStars');
+
+  @override
+  Future salveStars(int value) {
+    return _$salveStarsAsyncAction.run(() => super.salveStars(value));
+  }
+
   final _$_InformationControllerBaseActionController =
       ActionController(name: '_InformationControllerBase');
 
@@ -237,17 +245,6 @@ mixin _$InformationController on _InformationControllerBase, Store {
         .startAction(name: '_InformationControllerBase.setStars');
     try {
       return super.setStars(value);
-    } finally {
-      _$_InformationControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic salveStars(int value) {
-    final _$actionInfo = _$_InformationControllerBaseActionController
-        .startAction(name: '_InformationControllerBase.salveStars');
-    try {
-      return super.salveStars(value);
     } finally {
       _$_InformationControllerBaseActionController.endAction(_$actionInfo);
     }

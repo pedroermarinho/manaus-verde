@@ -1,20 +1,24 @@
-class FavoriteModel {
-  String idFavorite;
+class StarsModel {
+  String idStars;
   String idUser;
   String idMarker;
+  int stars;
 
-  FavoriteModel({
-    this.idFavorite,
+  StarsModel({
+    this.idStars,
     this.idUser,
     this.idMarker,
+    this.stars,
   });
 
-  factory FavoriteModel.fromJson(Map<String, dynamic> json) {
-    return FavoriteModel(
+  factory StarsModel.fromJson(Map<String, dynamic> json) {
+    return StarsModel(
       //field: json[''],
-      idFavorite: json['id_favorite'],
+      idStars: json['id_stars'],
       idUser: json['id_user'],
       idMarker: json['id_marker'],
+      stars: json['stars'],
+
     );
   }
 
@@ -22,6 +26,7 @@ class FavoriteModel {
     Map<String, dynamic> map = {
       "id_user": idUser,
       "id_marker": idMarker,
+      "stars": stars,
     };
     return map;
   }
