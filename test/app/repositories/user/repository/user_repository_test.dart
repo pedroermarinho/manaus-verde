@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+// import 'package:mockito/mockito.dart';
 import 'package:dio/dio.dart';
 
 import 'package:manaus_verde/app/repositories/user/repository/interfaces/user_repository_interface.dart';
 
-class MockClient extends Mock implements Dio {}
+// class MockClient extends Mock implements Dio {}
 
 void main() {
   IUserRepository repository;

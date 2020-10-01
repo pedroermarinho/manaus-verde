@@ -40,7 +40,6 @@ class _SplashScreenPageState
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black,
         padding: EdgeInsets.all(60),
         child: Center(
           child: Image.asset("assets/images/logo.png"),
